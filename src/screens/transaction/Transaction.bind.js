@@ -17,10 +17,6 @@ import FloatingLabelInput from "../../components/floatLabel";
 
 const { width, height } = Dimensions.get("window");
 
-export const notes = this.state.bubbleArray.map((val, key) => {
-    return <Buble key={key} keyval={key} val={val} />
-})
-
 class AddTransaction extends React.Component {
 
     constructor(props) {
