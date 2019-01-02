@@ -10,16 +10,11 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import CacheStorage from "react-native-cache-store";
 import axios from "axios";
 
-import Buble from "../../components/bubbleTransaction";
 import styles from "./Transaction.style";
 import Loading from "../../components/Loading";
 import FloatingLabelInput from "../../components/floatLabel";
 
 const { width, height } = Dimensions.get("window");
-
-export const notes = this.state.bubbleArray.map((val, key) => {
-    return <Buble key={key} keyval={key} val={val} />
-})
 
 class AddTransaction extends React.Component {
 
