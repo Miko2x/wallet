@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableNativeFeedback, FlatList, BackHandler } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5"
 import CacheStorage from "react-native-cache-store";
 
@@ -11,17 +11,13 @@ class Wallet extends React.Component {
         bubble: []
     }
 
-    logOut = () => {
-        CacheStorage.remove("access_token")
-            .then(() => {
-                this.goToLogin()
-            })
+    componentDidMount() {
+        BackHandler.addEventListener("back", this.back)
     }
 
-    goToLogin() {
-        const { navigation } = this.props;
-        navigation.navigate("login");
-    };
+    back = () => {
+        BackHandler.exitApp()
+    }
 
     render() {
         return (
@@ -29,12 +25,12 @@ class Wallet extends React.Component {
                 <View style={styles.base}>
                     <View style={styles.subtitle}>
                         <View style={styles.viewText}>
-                            <Text style={styles.walletText} onPress={this.logOut}>My Wallet</Text>
+                            <Text style={styles.walletText}>All Transactions</Text>
                         </View>
                         <View style={styles.line} />
                     </View>
                     <View style={styles.bubble}>
-                        <TouchableOpacity>
+                        <TouchableNativeFeedback>
                             <View style={styles.viewBubbleBlue}>
                                 <Text style={styles.titleTextBblue}>Income</Text>
                                 <Icon
@@ -44,10 +40,10 @@ class Wallet extends React.Component {
                                 />
                                 <Text style={styles.textIdrBblue}>IDR 500,000</Text>
                             </View>
-                        </TouchableOpacity>
+                        </TouchableNativeFeedback>
                     </View>
                     <View style={styles.bubble}>
-                        <TouchableOpacity>
+                        <TouchableNativeFeedback>
                             <View style={styles.viewBubbleWhite}>
                                 <Text style={styles.titleTextBwhite}>Expense</Text>
                                 <Icon
@@ -57,10 +53,10 @@ class Wallet extends React.Component {
                                 />
                                 <Text style={styles.textIdrBwhite}>IDR 500,000</Text>
                             </View>
-                        </TouchableOpacity>
+                        </TouchableNativeFeedback>
                     </View>
                     <View style={styles.bubble}>
-                        <TouchableOpacity>
+                        <TouchableNativeFeedback>
                             <View style={styles.viewBubbleBlue}>
                                 <Text style={styles.titleTextBblue}>Balance</Text>
                                 <Icon
@@ -70,7 +66,7 @@ class Wallet extends React.Component {
                                 />
                                 <Text style={styles.textIdrBblue}>IDR 500,000</Text>
                             </View>
-                        </TouchableOpacity>
+                        </TouchableNativeFeedback>
                     </View>
                 </View>
             </View>
