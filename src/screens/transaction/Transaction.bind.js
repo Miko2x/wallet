@@ -11,8 +11,9 @@ import axios from "axios";
 
 import styles from "./Transaction.style";
 import Loading from "../../components/Loading";
-import FloatingLabelInput from "../../components/floatLabel";
 import PickerLabel from "../../components/PickerLabel";
+
+const { width, height } = Dimensions.get("window");
 
 class AddTransaction extends React.Component {
 
