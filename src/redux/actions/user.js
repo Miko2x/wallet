@@ -1,4 +1,4 @@
-import { ToastAndroid } from "react-native";
+import { ToastAndroid, Alert } from "react-native";
 import CacheStorage from "react-native-cache-store";
 import { loginUrl, signUpUrl } from "../../utils/endpoints";
 
@@ -66,7 +66,13 @@ export const createUser = ({ name, email, password, rePassword }) => {
                     payload: data
                 });
                 console.log(data)
-                ToastAndroid.show("You have successfully registered", ToastAndroid.SHORT);
+                Alert.alert(
+                    "You have successfully registered",
+                    "Check your Email to confirmation your Account",
+                    [
+                      {text: "OK", onPress: () => console.log("OK Pressed")},
+                    ]
+                  )
                 dispatch({ type: "Navigation/NAVIGATE", routeName: "login" });
             })
             .catch((error) => {
