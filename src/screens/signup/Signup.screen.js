@@ -27,13 +27,15 @@ class SignUp extends React.Component {
             icEye: "md-eye-off",
             icEyeRe: "md-eye-off",
             pwdShow: true,
-            rePwdShow: true
+            rePwdShow: true,
+            loading: false
         };
     };
 
     changePwdType = () => {
+        const { pwdShow } = this.state;
         let newState1;
-        if (this.state.pwdShow) {
+        if (pwdShow) {
             newState1 = {
                 icEye: "md-eye",
                 pwdShow: false
@@ -50,8 +52,9 @@ class SignUp extends React.Component {
     };
 
     changeRePwdType = () => {
+        const { rePwdShow } = this.state;
         let newState2;
-        if (this.state.rePwdShow) {
+        if (rePwdShow) {
             newState2 = {
                 icEyeRe: "md-eye",
                 rePwdShow: false
@@ -85,8 +88,11 @@ class SignUp extends React.Component {
 
     onPressSignUp = () => {
         const { name, email, password, rePassword } = this.props;
-        this.props.createUser({ name, email, password, rePassword });
-        <Loading />
+        if(name == "" && email == "" && password == "" && rePassword == "") {
+            return null
+        } else {
+            return this.props.createUser({ name, email, password, rePassword }) && this.setState({ loading: true })
+        }
     };
 
     onPressLogin = () => {
@@ -96,16 +102,12 @@ class SignUp extends React.Component {
 
     render() {
         const { name, email, password, rePassword } = this.props;
-        const isEnabled =
-            name.length > 0 &&
-            email.length > 0 &&
-            password.length > 0 &&
-            rePassword.length > 0
-        const { icContact, icMail, icLock, icEye, icEyeRe, pwdShow, rePwdShow } = this.state;
+        const { icContact, icMail, icLock, icEye, icEyeRe, pwdShow, rePwdShow, loading } = this.state;
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <ImageBackground source={background} style={styles.bg}>
                     <View style={styles.baseView}>
+                        <Loading title="Please wait..." loading={loading === true} />
                         <View style={styles.contentView}>
                             <View style={styles.textView}>
                                 <View>
@@ -213,7 +215,7 @@ class SignUp extends React.Component {
                                 </View>
                             </KeyboardAvoidingView>
                             <View style={styles.buttonView}>
-                                <TouchableOpacity onPress={this.onPressSignUp} disabled={!isEnabled}>
+                                <TouchableOpacity onPress={this.onPressSignUp}>
                                     <View style={styles.textButtonLoginView}>
                                         <Text style={styles.textButton}>Sign Up</Text>
                                     </View>
