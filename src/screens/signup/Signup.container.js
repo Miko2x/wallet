@@ -10,12 +10,13 @@ import {
 } from "../../redux/actions/user";
 
 const mapStateToProps = (state) => {
-    const { name, email, password, rePassword } = state.authReducer
+    const { name, email, password, rePassword, loading } = state.authReducer
     return {
         name,
         email,
         password,
-        rePassword
+        rePassword,
+        loading
     };
 };
 

@@ -64,29 +64,37 @@ export default StyleSheet.create({
     iconEye: { 
         paddingTop: 16
     },
+    textForgot: { 
+        color: "#42b9d6",
+        fontSize: 15,
+        alignSelf: "flex-end",
+        top: 10,
+        height: 30,
+        width: "85%",
+    },
     buttonView: { 
         width: "75%", 
         justifyContent: "space-between", 
         height: 105 
     },
     textButtonLoginView: { 
-        borderRadius: 25, 
-        backgroundColor: "#42b9d6", 
+        height: 50, 
         width: "100%", 
+        borderRadius: 25,
+        backgroundColor: "#42b9d6", 
         alignItems: "center", 
         justifyContent: "center", 
-        height: 50, 
     },
     textButtonSignUpView: { 
+        height: 50, 
+        width: "100%", 
         borderRadius: 25, 
         backgroundColor: "#ff5555", 
-        width: "100%", 
         alignItems: "center", 
         justifyContent: "center", 
-        height: 50, 
     },
     textButton: { 
+        color: "#ffff",
         fontSize: 20, 
-        color: "#ffff" 
     },
 })

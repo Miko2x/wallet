@@ -3,7 +3,8 @@ import {
     View,
     Text,
     ScrollView,
-    Dimensions
+    Dimensions,
+    BackHandler
 } from 'react-native'
 import {
     LineChart,
@@ -12,14 +13,35 @@ import {
 
 class Statistic extends React.Component {
 
+    componentDidMount() {
+        BackHandler.addEventListener("back", this.back)
+    }
+
+    back = () => {
+        return this.props.navigation.navigate("wallet")
+    }
+
     render() {
         return (
-            <View style={{
-                backgroundColor: 'white',
-            }}>
-                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingVertical: 30, justifyContent: "space-between", }}>
+            <View style={{ backgroundColor: 'white' }}>
+                <View>
                     <Text style={{
                         fontSize: 35,
+                        fontWeight: 'bold',
+                        textAlign: "center",
+                    }}>Report</Text>
+                    <View style={{
+                        width: '30%',
+                        height: 4,
+                        backgroundColor: '#42b9d6',
+                        borderRadius: 5,
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                    }} />
+                </View>
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingVertical: 30, justifyContent: "space-between", }}>
+                    <Text style={{
+                        fontSize: 30,
                         fontWeight: 'bold',
                         textAlign: "center",
                     }}>Income</Text>
@@ -32,44 +54,44 @@ class Statistic extends React.Component {
                         justifyContent: 'center',
                     }} />
                     <ScrollView horizontal={true} >
-                    <LineChart
-                        data={{
-                            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                            datasets: [{
-                                data: [
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100,
-                                    Math.random() * 100
-                                ]
-                            }]
-                        }}
-                        width={Dimensions.get('window').width}
-                        height={220}
-                        chartConfig={{
-                            backgroundColor: '#cbebfd',
-                            backgroundGradientFrom: '#42b9d6',
-                            backgroundGradientTo: '#1fd6f3',
-                            decimalPlaces: 2,
-                            color: (opacity = 2) => `rgba(255, 255, 255, ${opacity})`,
-                            style: {
-                                borderRadius: 16
-                            }
-                        }}
-                        bezier
-                        style={{
-                            marginVertical: 8,
-                            borderRadius: 16,
-                            elevation: 5
-                        }}
-                    />
+                        <LineChart
+                            data={{
+                                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                                datasets: [{
+                                    data: [
+                                        Math.random() * 100,
+                                        Math.random() * 100,
+                                        Math.random() * 100,
+                                        Math.random() * 100,
+                                        Math.random() * 100,
+                                        Math.random() * 100
+                                    ]
+                                }]
+                            }}
+                            width={Dimensions.get('window').width}
+                            height={220}
+                            chartConfig={{
+                                backgroundColor: '#cbebfd',
+                                backgroundGradientFrom: '#42b9d6',
+                                backgroundGradientTo: '#1fd6f3',
+                                decimalPlaces: 2,
+                                color: (opacity = 2) => `rgba(255, 255, 255, ${opacity})`,
+                                style: {
+                                    borderRadius: 16
+                                }
+                            }}
+                            bezier
+                            style={{
+                                marginVertical: 8,
+                                borderRadius: 16,
+                                elevation: 5
+                            }}
+                        />
                     </ScrollView>
                     <Text style={{ fontStyle: "italic" }}>*Data displayed in the last 6 months</Text>
                     <View style={{ paddingVertical: 10 }} />
                     <Text style={{
-                        fontSize: 35,
+                        fontSize: 30,
                         fontWeight: 'bold',
                         textAlign: "center"
                     }}>Expense</Text>

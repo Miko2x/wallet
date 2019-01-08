@@ -4,10 +4,14 @@ import {
 
 import UnAuthNavigation from './unAuthorizedNavigation';
 import AuthNavigation from './authorizedNavigation';
+import Splash from "../components/Splash";
 
 const RouteConfigs = {
   UnAuthNavigation: {
     screen: UnAuthNavigation
+  },
+  Splash: {
+    screen: Splash
   },
   AuthNavigation: {
     screen: AuthNavigation
@@ -15,7 +19,7 @@ const RouteConfigs = {
 }
 
 const SwitchNavigatorConfig = {
-  initialRouteName: 'UnAuthNavigation'
+  initialRouteName: 'Splash'
 }
 
 const AppNavigation = createSwitchNavigator(RouteConfigs, SwitchNavigatorConfig);

@@ -2,9 +2,18 @@ import React from 'react';
 import { View, Text, ActivityIndicator, StatusBar, StyleSheet, Image, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get("window");
-const Logo = require('../assets/logo.png')
+const Logo = require("../assets/logo.png")
 
 class splashScreen extends React.Component {
+
+    state ={
+        showIndicator: true
+    }
+
+    componentDidMount() {
+        setTimeout(() => this.setState({showIndicator: false}), 3000);
+    }
+
     render() {
         return (
             <View style={styles.container1}>
@@ -20,9 +29,11 @@ class splashScreen extends React.Component {
                             />
                         </View>
                     </View>
-                    <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
                         <StatusBar backgroundColor="#2c3e50" barStyle="light-content" />
-                        <ActivityIndicator color={'white'} />
+                        {this.state.showIndicator
+                        ? (<ActivityIndicator size="small"/>)
+                        : (<Text style={{ fontSize: 35, fontWeight: "bold", color: "white" }}>Welcome!</Text>)}
                     </View>
                 </View>
             </View>

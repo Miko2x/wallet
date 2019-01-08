@@ -4,11 +4,20 @@ import {
     Text,
     View,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    BackHandler
 } from 'react-native';
 
 
 class Transaction extends React.Component {
+
+    componentDidMount() {
+        BackHandler.addEventListener("back", this.back)
+    }
+
+    back = () => {
+        return this.props.navigation.navigate("wallet")
+    }
 
     addTransaction = () => {
         const { navigation } = this.props;
@@ -30,7 +39,7 @@ class Transaction extends React.Component {
                         </ScrollView>
                     </View>
                     <View style={styles.buttonView}>
-                        <TouchableOpacity onPress={this.addTransaction}>
+                        <TouchableOpacity>
                             <View style={styles.textView}>
                                 <Text style={styles.textAdd}>+</Text>
                             </View>

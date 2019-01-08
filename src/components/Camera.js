@@ -68,7 +68,7 @@ class Camera extends React.Component {
     };
 
     uploadPicture = () => {
-        console.log("Mulai upload");
+        console.log("Start upload");
         this.setState({ loading: true })
         const data = new FormData();
 

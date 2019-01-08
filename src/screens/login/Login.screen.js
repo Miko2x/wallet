@@ -7,9 +7,10 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     ImageBackground,
-    TextInput
+    TextInput,
+    BackHandler,
+    ActivityIndicator
 } from "react-native";
-import _ from "lodash";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import styles from "./Login.style";
@@ -27,8 +28,17 @@ class Login extends Component {
             email: "",
             password: "",
             pwdShow: true,
+            loading: false
         };
     };
+
+    componentDidMount() {
+        BackHandler.addEventListener("back", this.back)
+    }
+
+    back = () => {
+        BackHandler.exitApp()
+    }
 
     changePwdType = () => {
         let newState;
@@ -48,31 +58,40 @@ class Login extends Component {
 
     };
 
-    onEmailChanged = email => this.setState({email});
+    onEmailChanged = email => this.setState({ email });
 
-    onPasswordChanged = password => this.setState({password});
+    onPasswordChanged = password => this.setState({ password });
 
     onPressLogin = () => {
         const { email, password } = this.state;
-        this.props.postLogin({ email, password });
-        <Loading/>
+        if (email === "" && password === "") {
+            return null
+        } else if ( email !== "" && password !== ""){
+            return this.props.postLogin({ email, password }) && this.setState({ loading: true })
+        } else{
+            return this.props.loading === false
+        }
     };
 
     onPressSignUp = () => {
         const { navigation } = this.props;
         navigation.navigate("signUp");
+        this.setState({ email: "", password: "" })
     };
+
+    onPressForgot = () => {
+        const { navigation } = this.props;
+        navigation.navigate("forgot")
+    }
 
     render() {
         const { email, password } = this.state;
-        const isEnabled =
-            email.length > 0 &&
-            password.length > 0;
-        const { icEye, icLock, icMail, pwdShow } = this.state
+        const { icEye, icLock, icMail, pwdShow, loading } = this.state
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <ImageBackground source={background} style={styles.bg}>
                     <View style={styles.baseView}>
+                        <Loading title="Please wait..." loading={loading === true} />
                         <View style={styles.contentView}>
                             <View style={styles.textView}>
                                 <View>
@@ -130,10 +149,11 @@ class Login extends Component {
                                             onPress={this.changePwdType}
                                         />
                                     </View>
+                                    <Text style={styles.textForgot} onPress={this.onPressForgot}>Forgot your Password?</Text>
                                 </View>
                             </KeyboardAvoidingView>
                             <View style={styles.buttonView}>
-                                <TouchableOpacity onPress={this.onPressLogin} disabled={!isEnabled}>
+                                <TouchableOpacity onPress={this.onPressLogin}>
                                     <View style={styles.textButtonLoginView}>
                                         <Text style={styles.textButton}>Login</Text>
                                     </View>
