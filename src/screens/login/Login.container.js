@@ -11,10 +11,11 @@ import {
 
 
 const mapStateToProps = state => {
-    const { email, password } = state.authReducer
+    const { email, password, loading } = state.authReducer
     return {
         email,
-        password
+        password,
+        loading
     };
 };
 export default connect(
