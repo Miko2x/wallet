@@ -18,6 +18,7 @@ const initialState = {
     rePassword: "",
     token: "",
     error: null,
+    loading: false
 };
 
 export default (authReducer = (state = initialState, action) => {
@@ -46,24 +47,28 @@ export default (authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 email: "",
-                password: ""
+                password: "",
+                loading: true
             };
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 email: "",
-                password: ""
+                password: "",
+                loading: false
             };
         case GET_LOGIN_FAILURE:
             return {
                 ...state,
                 error: action.payload,
                 email: "",
-                password: ""
+                password: "",
+                loading: false
             };
         case CREATE_USER_BEGIN:
             return {
-                ...state
+                ...state,
+                loading: true
             };
         case CREATE_USER_SUCCESS:
             return {
@@ -72,12 +77,14 @@ export default (authReducer = (state = initialState, action) => {
                 email: "",
                 password: "",
                 rePassword: "",
+                loading: false
             };
         case EMAIL_EXISTS:
             return {
                 ...state,
                 email: "",
-                password: ""
+                password: "",
+                loading: false
             };
         default:
             return state;
