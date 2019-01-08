@@ -29,6 +29,7 @@ class FloatingLabelInput extends Component {
                 </Text>
                 <TextInput
                     {...props}
+                    {...this.props}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                     selectionColor="#42b9d6"
