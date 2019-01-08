@@ -12,8 +12,9 @@ import Transaction from "../screens/transaction/Transaction.screen";
 import AddTransaction from "../screens/transaction/Transaction.bind";
 import Statistic from "../screens/statistic/Statistic";
 import Profile from "../screens/profile/User.screen";
-import EditProfile from "../components/EditProfile";
+import EditProfile from "../screens/login/EditProfile";
 import Camera from "../components/Camera";
+import Change from "../screens/profile/changePassword";
 import IconUser from "../components/Icon";
 
 const List1 = createStackNavigator(
@@ -127,10 +128,7 @@ const addTransaction = createStackNavigator({
     create: {
         screen: AddTransaction,
         navigationOptions: {
-            headerStyle: {
-                backgroundColor: "#182a3c",
-                height: 60
-            }
+            header: null
         }
     }
 })
@@ -143,13 +141,23 @@ const editProfile = createStackNavigator({
         }
     },
     edit: {
-        screen: EditProfile
+        screen: EditProfile,
+        navigationOptions: {
+            headerTintColor: '#ffffff',
+            headerStyle: {
+                backgroundColor: "#182a3c",
+                height: 60
+            },
+        }
     },
-})
-
-const image = createStackNavigator({
     camera: {
         screen: Camera,
+        navigationOptions: {
+            header: null
+        }
+    },
+    change: {
+        screen: Change,
         navigationOptions: {
             header: null
         }
@@ -162,7 +170,6 @@ const AuthNavigation = createStackNavigator(
         bottomNavigator,
         addTransaction,
         editProfile,
-        image
     },
     {
         headerMode: "none"
