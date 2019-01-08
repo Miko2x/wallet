@@ -1,6 +1,7 @@
 import React from "react";
 import {
-    Image, View, Text, TouchableOpacity, BackHandler
+    Image, View, Text, TouchableNativeFeedback, 
+    BackHandler, Alert
 } from "react-native";
 import CacheStorage from "react-native-cache-store";
 
@@ -73,7 +74,15 @@ class UserProfile extends React.Component {
     logOut = () => {
         CacheStorage.remove("access_token")
             .then(() => {
-                this.goToLogin()
+                Alert.alert(
+                    "Logout",
+                    "Are you sure want to logout?",
+                    [
+                      {text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel"},
+                      {text: "OK", onPress: () => this.goToLogin() && console.log("OK Pressed")},
+                    ],
+                    { cancelable: false }
+                  )
             })
     }
 
@@ -91,32 +100,30 @@ class UserProfile extends React.Component {
                     <View style={styles.contentView}>
                         <View style={styles.image}>
                             <Image
-                                source={{uri: avatar}}
+                                source={{ uri: avatar }}
                                 style={styles.avatar}
                             />
                         </View>
-                        <View style={{ alignItems: "center", justifyContent: "space-between", paddingVertical: 30,  }}>
+                        <View style={{ alignItems: "center", justifyContent: "space-between", paddingVertical: 30, }}>
 
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>{name}</Text>
 
-
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>{email}</Text>
-
 
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>{phone}</Text>
 
                         </View>
                         <View style={styles.button}>
-                            <View style={{ width: "40%", height: 40, backgroundColor: "#42b9d6", elevation: 5, alignItems: 'center', justifyContent: 'center', borderRadius: 25 }}>
-                                <TouchableOpacity onPress={this.goToEdit}>
+                            <TouchableNativeFeedback onPress={this.goToEdit}>
+                                <View style={{ width: "40%", height: 40, backgroundColor: "#42b9d6", elevation: 5, alignItems: "center", justifyContent: "center", borderRadius: 25 }}>
                                     <Text style={{ color: "white" }}>Edit Profile</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ width: "40%", height: 40, backgroundColor: "#ff5555", elevation: 5, alignItems: 'center', justifyContent: 'center', borderRadius: 25 }}>
-                                <TouchableOpacity onPress={this.logOut} >
+                                </View>
+                            </TouchableNativeFeedback>
+                            <TouchableNativeFeedback onPress={this.logOut} >
+                                <View style={{ width: "40%", height: 40, backgroundColor: "#ff5555", elevation: 5, alignItems: "center", justifyContent: "center", borderRadius: 25 }}>
                                     <Text style={{ color: "white" }}>Logout</Text>
-                                </TouchableOpacity>
-                            </View>
+                                </View>
+                            </TouchableNativeFeedback>
                         </View>
                     </View>
                 </View>
