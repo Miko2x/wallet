@@ -12,7 +12,7 @@ import Transaction from "../screens/transaction/Transaction.screen";
 import AddTransaction from "../screens/transaction/Transaction.bind";
 import Statistic from "../screens/statistic/Statistic";
 import Profile from "../screens/profile/User.screen";
-import EditProfile from "../screens/login/EditProfile";
+import EditProfile from "../screens/profile/EditProfile";
 import Camera from "../components/Camera";
 import Change from "../screens/profile/changePassword";
 import IconUser from "../components/Icon";

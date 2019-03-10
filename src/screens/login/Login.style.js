@@ -1,8 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get("window")
 
 export default StyleSheet.create({
     bg: { 
-        flex: 1 
+        width: width,
+        height: height
     },
     baseView: { 
         justifyContent: "center", 

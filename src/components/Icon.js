@@ -1,24 +1,33 @@
 import React from "react";
 import { Image, View, FlatList, ActivityIndicator } from "react-native";
-import CacheStorage from "react-native-cache-store";
+import axios from "axios";
+import CacheStore from "react-native-cache-store";
 
 import { userDataUrl } from "../utils/endpoints";
 
 class IconUser extends React.Component {
 
     state = {
-        token: null,
+        token: "",
         data: [],
-        page: 1,
-        seed: 1,
+        token: null,
         loading: true,
-        refreshing: true
+    }
+
+    componentWillMount() {
+        CacheStore.get("access_token")
+            .then(token => {
+                this.setState({ token })
+                this.getData({ token })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     getData() {
-        const token = this.state.token
         this.state.loading
-        this.state.refreshing
+        const token = this.state.token
         return fetch(userDataUrl, {
             method: "GET",
             headers: {
@@ -29,37 +38,16 @@ class IconUser extends React.Component {
         })
             .then(res => res.json())
             .then(responJSON => {
-                console.log(responJSON)
-                this.setState({ data: [responJSON.data], loading: false, refreshing: false })
+                this.setState({
+                    loading: false,
+                    data: [responJSON.data],
+                })
             })
             .catch(err => {
                 console.log(err)
-                this.setState({ loading: false, refreshing: false })
+                this.setState({ loading: false })
             });
     };
-
-    componentDidMount() {
-        CacheStorage.get("access_token")
-            .then(token => {
-                console.log(token)
-                this.setState({ token })
-                this.getData({ token })
-            }).catch(err => {
-                console.log(err)
-            })
-    }
-
-    handleRefresh = () => {
-        this.setState(
-            {
-                page: 1,
-                refreshing: true,
-                seed: this.state.seed + 1,
-            }, () => {
-                this.getData();
-            }
-        )
-    }
 
     renderData = ({ item }) => {
         console.log(item.avatar)
@@ -72,6 +60,7 @@ class IconUser extends React.Component {
     }
 
     render() {
+        const data = this.state.data
         return (
             this.state.loading
                 ?
@@ -80,11 +69,9 @@ class IconUser extends React.Component {
                 </View>
                 :
                 <FlatList
-                    data={this.state.data}
+                    data={data}
                     keyExtractor={(x, i) => i.toString()}
                     renderItem={this.renderData}
-                    refreshing={this.state.refreshing}
-                    onRefresh={this.handleRefresh}
                 />
         );
     }

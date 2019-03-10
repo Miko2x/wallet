@@ -7,11 +7,11 @@ import AuthNavigation from './authorizedNavigation';
 import Splash from "../components/Splash";
 
 const RouteConfigs = {
-  UnAuthNavigation: {
-    screen: UnAuthNavigation
-  },
   Splash: {
     screen: Splash
+  },
+  UnAuthNavigation: {
+    screen: UnAuthNavigation
   },
   AuthNavigation: {
     screen: AuthNavigation

@@ -8,8 +8,7 @@ import {
     KeyboardAvoidingView,
     ImageBackground,
     TextInput,
-    BackHandler,
-    ActivityIndicator
+    BackHandler
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 

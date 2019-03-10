@@ -10,6 +10,12 @@ const { store, AppWithNavigationState } = getStore()
 
 class App extends React.Component {
 
+  componentWillMount() {
+    setTimeout(() => {
+      this.checkToken()
+    }, 4500);
+  }
+
   checkToken() {
     CacheStore.get("access_token").then(value => {
       if (_.isEmpty(value)) {
@@ -18,10 +24,6 @@ class App extends React.Component {
         store.dispatch({ type: "Navigation/NAVIGATE", routeName: "AuthNavigation" })
       }
     });
-  }
-
-  componentDidMount() {
-    this.checkToken();
   }
 
   render() {
