@@ -13,8 +13,6 @@ import styles from "./Transaction.style";
 import Loading from "../../components/Loading";
 import PickerLabel from "../../components/PickerLabel";
 
-const { width, height } = Dimensions.get("window");
-
 class AddTransaction extends React.Component {
 
     constructor(props) {
@@ -115,7 +113,7 @@ class AddTransaction extends React.Component {
     userChanged = user => this.setState({ user });
 
     render() {
-        
+
         let dataType = typeList.map((datas) => {
             return <Picker.Item key={datas.type_id} value={datas.type_id} label={datas.type} />
         })

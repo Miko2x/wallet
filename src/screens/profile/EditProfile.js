@@ -1,14 +1,14 @@
 import React from "react";
 import {
-    View, Text, Image, Button, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback,
-    KeyboardAvoidingView, Keyboard, ToastAndroid, BackHandler
+    View, Text, Image, TextInput, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback,
+    KeyboardAvoidingView, Keyboard, ToastAndroid, BackHandler, FlatList
 } from "react-native";
 import CacheStorage from "react-native-cache-store";
 import axios from "axios";
 
 import Loading from "../../components/Loading";
 import { userDataUrl } from "../../utils/endpoints";
-import styles from "../profile/EditProfile.style";
+import styles from "./EditProfile.style";
 import FloatingLabelInput from "../../components/floatLabel";
 
 class EditProfile extends React.Component {
@@ -17,17 +17,14 @@ class EditProfile extends React.Component {
         super(props);
         this.state = {
             token: "",
-            avatar: "",
             name: "",
-            email: "",
             phone: "",
+            datas: [],
             loading: false,
         }
     }
 
-    componentDidMount() {
-        this.getData()
-        BackHandler.addEventListener("back", this.back)
+    componentWillMount() {
         CacheStorage.get("access_token")
             .then(token => {
                 console.log(token)
@@ -36,6 +33,10 @@ class EditProfile extends React.Component {
             }).catch(err => {
                 console.log(err)
             })
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener("back", this.back)
     }
 
     back = () => {
@@ -68,9 +69,8 @@ class EditProfile extends React.Component {
                 console.log(responJSON)
                 this.setState({
                     loading: false,
-                    avatar: responJSON.data.avatar,
+                    datas: [responJSON.data],
                     name: responJSON.data.name,
-                    email: responJSON.data.email,
                     phone: responJSON.data.phone_number
                 })
             })
@@ -93,8 +93,8 @@ class EditProfile extends React.Component {
             .then(responJSON => {
                 console.log(responJSON)
                 this.setState({
-                    name: responJSON.data.data.name,
-                    phone: responJSON.data.data.phone_number,
+                    name: responJSON.data.name,
+                    phone: responJSON.data.phone_number,
                     loading: false
                 })
                 ToastAndroid.show("Your data has been changed", ToastAndroid.SHORT);
@@ -106,23 +106,21 @@ class EditProfile extends React.Component {
             });
     }
 
-    nameChanged = name => this.setState({ name });
+    nameChanged = name => this.setState({ name: name });
 
-    phoneChanged = phone => this.setState({ phone });
+    phoneChanged = phone => this.setState({ phone: phone });
 
-    render() {
-        const { avatar, name, email, phone, loading } = this.state;
-        console.log(name)
+    renderDatas = ({ item }) => {
+        console.log(this.state.name, this.state.phone)
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={styles.container}>
-                    <Loading title="Please wait..." loading={loading===true} />
                     <View style={styles.baseView}>
                         <View style={styles.contentView}>
                             <View style={styles.image}>
                                 <TouchableOpacity onPress={this.onTapPicture}>
                                     <Image
-                                        source={{ uri: avatar }}
+                                        source={{ uri: item.avatar }}
                                         style={styles.avatar}
                                     />
                                     <View style={styles.mask}>
@@ -134,8 +132,9 @@ class EditProfile extends React.Component {
                                 <View style={styles.textInputContainer}>
                                     <View style={styles.textInputView}>
                                         <FloatingLabelInput
-                                            label="Full Name *"
-                                            value={name}
+                                            label="Full Name"
+                                            star="*"
+                                            value={this.state.name}
                                             onChangeText={this.nameChanged}
                                         />
                                     </View>
@@ -143,14 +142,15 @@ class EditProfile extends React.Component {
                                         <FloatingLabelInput
                                             style={{ color: "#d3d3d3", fontStyle: "italic" }}
                                             label="Email"
-                                            value={email}
+                                            value={item.email}
                                             editable={false}
                                         />
                                     </View>
                                     <View style={styles.textInputView}>
                                         <FloatingLabelInput
-                                            label="Phone *"
-                                            value={phone}
+                                            label="Phone"
+                                            star="*"
+                                            value={this.state.phone}
                                             onChangeText={this.phoneChanged}
                                         />
                                     </View>
@@ -172,6 +172,21 @@ class EditProfile extends React.Component {
                     </View>
                 </View>
             </TouchableWithoutFeedback>
+        )
+    }
+
+    render() {
+        const { datas, loading } = this.state;
+        return (
+            loading === true
+                ?
+                <Loading title="Please wait..." />
+                :
+                <FlatList
+                    data={datas}
+                    keyExtractor={(x, i) => i.toString()}
+                    renderItem={this.renderDatas}
+                />
         );
     };
 };

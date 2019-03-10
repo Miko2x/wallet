@@ -19,13 +19,17 @@ class Wallet extends React.Component {
         BackHandler.exitApp()
     }
 
+    out = () => {
+        CacheStorage.remove("access_token")
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.base}>
                     <View style={styles.subtitle}>
                         <View style={styles.viewText}>
-                            <Text style={styles.walletText}>All Transactions</Text>
+                            <Text style={styles.walletText} onPress={this.out} >All Transactions</Text>
                         </View>
                         <View style={styles.line} />
                     </View>

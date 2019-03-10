@@ -6,12 +6,15 @@ const Logo = require("../assets/logo.png")
 
 class splashScreen extends React.Component {
 
-    state ={
+    state = {
         showIndicator: true
     }
 
-    componentDidMount() {
-        setTimeout(() => this.setState({showIndicator: false}), 3000);
+    componentWillMount() {
+        setTimeout(() =>
+            this.setState({
+                showIndicator: false
+            }), 4000);
     }
 
     render() {
@@ -31,9 +34,11 @@ class splashScreen extends React.Component {
                     </View>
                     <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}>
                         <StatusBar backgroundColor="#2c3e50" barStyle="light-content" />
-                        {this.state.showIndicator
-                        ? (<ActivityIndicator size="small"/>)
-                        : (<Text style={{ fontSize: 35, fontWeight: "bold", color: "white" }}>Welcome!</Text>)}
+                        {
+                            this.state.showIndicator === true
+                                ? <ActivityIndicator size= "large" color="white" />
+                                : <Text style={{ fontSize: 35, fontWeight: "bold", color: "white" }}>Welcome!</Text>
+                        }
                     </View>
                 </View>
             </View>

@@ -13,7 +13,7 @@ const Loading = props => {
     >
       <View style={styles.modalBackground}>
         <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator animating={loading} size="large" />
+          <ActivityIndicator animating={loading} size="large" color="#92d3fb" />
           <Text>{title}</Text>
         </View>
       </View>

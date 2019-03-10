@@ -13,7 +13,7 @@ class FloatingLabelInput extends Component {
     handleBlur = () => this.setState({ isFocused: false });
 
     render() {
-        const { label, ...props } = this.props;
+        const { label, star, ...props } = this.props;
         const { isFocused } = this.state;
         const labelStyle = {
             position: "absolute",
@@ -22,14 +22,22 @@ class FloatingLabelInput extends Component {
             fontSize: !isFocused ? 13 : 13,
             color: !isFocused ? "#aaa" : "#42b9d6",
         };
+        const starStyle = {
+            position: "absolute",
+            top: !isFocused ? 10 : 10,
+            fontSize: !isFocused ? 13 : 13,
+            color: !isFocused ? "#aaa" : "red",
+        }
         return (
             <View style={{ paddingTop: 20 }}>
                 <Text style={labelStyle}>
                     {label}
+                    <Text style={starStyle}>
+                        {star}
+                    </Text>
                 </Text>
                 <TextInput
                     {...props}
-                    {...this.props}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                     selectionColor="#42b9d6"
