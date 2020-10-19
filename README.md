@@ -1,1 +1,1 @@
-Jadi ini adalah Applikasi Wallet yang untuk memudahkan kita dalam menyimpan uang.
+Wallet membantu Anda merencanakan anggaran secara fleksibel serta melacak pengeluaran sehingga Anda tetap terkontrol dan meraih tujuan masa depan. Wallet membantu Anda merencanakan anggaran secara fleksibel serta melacak pengeluaran sehingga Anda tetap terkontrol dan meraih tujuan masa depan
