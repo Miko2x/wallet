@@ -5,7 +5,7 @@ import {
 import UnAuthNavigation from './unAuthorizedNavigation';
 import AuthNavigation from './authorizedNavigation';
 import Splash from "../components/Splash";
-
+// cuma mau coba-coba aja mik
 const RouteConfigs = {
   Splash: {
     screen: Splash
