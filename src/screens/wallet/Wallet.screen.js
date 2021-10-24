@@ -48,6 +48,19 @@ class Wallet extends React.Component {
                     </View>
                     <View style={styles.bubble}>
                         <TouchableNativeFeedback>
+                            <View style={styles.viewBubbleBlue}>
+                                <Text style={styles.titleTextBblue}>Income</Text>
+                                <Icon
+                                    name="donate"
+                                    color="white"
+                                    size={30}
+                                />
+                                <Text style={styles.textIdrBblue}>USD 400,000</Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>
+                    <View style={styles.bubble}>
+                        <TouchableNativeFeedback>
                             <View style={styles.viewBubbleWhite}>
                                 <Text style={styles.titleTextBwhite}>Expense</Text>
                                 <Icon
